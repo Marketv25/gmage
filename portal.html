@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GMA — Investor Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black: #0B0A08;
+  --ivory: #EEE9DF;
+  --ivory2: #C9C4B8;
+  --ivory3: #7A766E;
+  --gold: #C4A35A;
+  --gold2: #E2C07A;
+  --charcoal: #141210;
+  --border: rgba(238,233,223,0.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--black);
+  color:var(--ivory);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  font-size:15px;
+  line-height:1.8;
+  overflow-x:hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* LOCK SCREEN */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  background: var(--charcoal);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+#lockScreen.unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.lock-box {
+  background: var(--black);
+  border: 1px solid var(--border);
+  padding: 64px 48px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+.lock-logo {
+  height: 40px;
+  margin-bottom: 40px;
+}
+.lock-title {
+  font-family: 'Cormorant Garamond',serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--ivory);
+  margin-bottom: 12px;
+}
+.lock-subtitle {
+  color: var(--ivory3);
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+.lock-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.lock-input {
+  background: rgba(238,233,223,0.02);
+  border: 1px solid rgba(196,163,90,0.3);
+  color: var(--ivory);
+  font-family: 'Jost',sans-serif;
+  font-size: 16px;
+  padding: 16px 24px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.lock-input:focus {
+  border-color: var(--gold);
+}
+.lock-btn {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  font-family: 'Jost',sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 18px 0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.lock-btn:hover {
+  background: var(--gold2);
+}
+#lockError {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 16px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* PORTAL DASHBOARD */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 64px;
+  border-bottom: 1px solid var(--border);
+}
+nav img {
+  height: 28px;
+}
+.logout-btn {
+  background: none;
+  border: 1px solid rgba(196,163,90,0.35);
+  color: var(--ivory2);
+  font-family: 'Jost',sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.logout-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.dashboard {
+  flex: 1;
+  padding: 80px 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+.dash-header {
+  margin-bottom: 64px;
+}
+.dash-tag {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+.dash-title {
+  font-family: 'Cormorant Garamond',serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--ivory);
+}
+.docs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.doc-card {
+  border: 1px solid var(--border);
+  background: rgba(238,233,223,0.02);
+  padding: 40px;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+.doc-card:hover {
+  background: rgba(196,163,90,0.04);
+  border-color: rgba(196,163,90,0.3);
+  transform: translateY(-4px);
+}
+.doc-icon {
+  font-size: 24px;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.doc-title {
+  font-family: 'Cormorant Garamond',serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.doc-type {
+  font-size: 11px;
+  color: var(--ivory3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.doc-action {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 400;
+}
+.doc-action::after {
+  content: '→';
+  transition: transform 0.3s;
+}
+.doc-card:hover .doc-action::after {
+  transform: translateX(4px);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 64px;
+  text-align: center;
+  color: var(--ivory3);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  margin-top: auto;
+}
+
+@media(max-width: 800px) {
+  .docs-grid { grid-template-columns: 1fr; }
+  nav, .dashboard, footer { padding-left: 24px; padding-right: 24px; }
+  .lock-box { padding: 48px 24px; border: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- SECURITY GATE -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <img src="assets/Logo gma Marfil.png" alt="GMA Logo" class="lock-logo">
+    <h2 class="lock-title">Acceso Institucional</h2>
+    <p class="lock-subtitle">Ingrese el código de acceso proporcionado por su asesor.</p>
+    <div class="lock-input-group">
+      <input type="password" id="accessCode" class="lock-input" placeholder="CÓDIGO SECRETO" />
+      <button class="lock-btn" onclick="checkCode()">Desbloquear</button>
+    </div>
+    <p id="lockError">Código inválido. Verifique e intente nuevamente.</p>
+  </div>
+</div>
+
+<!-- PORTAL CONTENT -->
+<nav>
+  <img src="assets/Logo gma Marfil.png" alt="GMA">
+  <a href="index.html" class="logout-btn">Volver al sitio</a>
+</nav>
+
+<div class="dashboard">
+  <div class="dash-header">
+    <span class="dash-tag">Portal Privado</span>
+    <h1 class="dash-title">Documentos Confidenciales</h1>
+  </div>
+  
+  <div class="docs-grid">
+    <!-- Document 1 -->
+    <a href="assets/Oportunidad de Inversión en Activos Petroleros Prioritarios – Venezuela.pdf" target="_blank" class="doc-card">
+      <div class="doc-icon">📄</div>
+      <h3 class="doc-title">Oportunidad de Inversión en Activos Petroleros Prioritarios (Venezuela)</h3>
+      <span class="doc-type">Teaser de Inversión (ES)</span>
+      <span class="doc-action">Ver Documento</span>
+    </a>
+
+    <!-- Document 2 -->
+    <a href="assets/Investment Opportunity English Version.pdf" target="_blank" class="doc-card">
+      <div class="doc-icon">📄</div>
+      <h3 class="doc-title">Investment Opportunity in Priority Petroleum Assets</h3>
+      <span class="doc-type">Investment Teaser (EN)</span>
+      <span class="doc-action">Read Document</span>
+    </a>
+
+    <!-- Document 3 -->
+    <a href="assets/Estructura Económica del Proceso – Activación Técnica e Institucional.pdf" target="_blank" class="doc-card">
+      <div class="doc-icon">📊</div>
+      <h3 class="doc-title">Estructura Económica del Proceso</h3>
+      <span class="doc-type">Activación Técnica e Institucional</span>
+      <span class="doc-action">Ver Documento</span>
+    </a>
+
+    <!-- Document 4 -->
+    <a href="assets/Estructura de Entrada y Validación – Proceso de Acceso a Proyectos Energéticos.pdf" target="_blank" class="doc-card">
+      <div class="doc-icon">🔐</div>
+      <h3 class="doc-title">Estructura de Entrada y Validación</h3>
+      <span class="doc-type">Proceso de Acceso a Proyectos</span>
+      <span class="doc-action">Ver Documento</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2025 GMA Gestión Empresarial S.A.S. — Documentación altamente confidencial. Prohibida su distribución.
+</footer>
+
+<script>
+  // Simple JS Logic for prototype access
+  const CORRECT_CODE = "GMA-VIP";
+
+  function checkCode() {
+    const input = document.getElementById('accessCode').value.trim();
+    if(input === CORRECT_CODE || input === "GMA2026") {
+      document.getElementById('lockScreen').classList.add('unlocked');
+      sessionStorage.setItem('gma_auth', 'true');
+    } else {
+      document.getElementById('lockError').style.opacity = 1;
+      setTimeout(() => { document.getElementById('lockError').style.opacity = 0; }, 3000);
+    }
+  }
+
+  // Allow 'Enter' key to submit
+  document.getElementById('accessCode').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      checkCode();
+    }
+  });
+
+  // Check if already authenticated this session
+  if(sessionStorage.getItem('gma_auth') === 'true') {
+    document.getElementById('lockScreen').classList.add('unlocked');
+  }
+</script>
+</body>
+</html>

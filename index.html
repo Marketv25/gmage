@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GMA — Strategic Investment Access Venezuela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black: #0B0A08;
+  --ivory: #EEE9DF;
+  --ivory2: #C9C4B8;
+  --ivory3: #7A766E;
+  --gold: #C4A35A;
+  --gold2: #E2C07A;
+  --charcoal: #141210;
+  --border: rgba(238,233,223,0.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--ivory);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  font-size:15px;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 64px;
+  background:rgba(11,10,8,0.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo img{height:36px;display:block;filter:brightness(1)}
+.nav-links{display:flex;gap:48px;list-style:none}
+.nav-links a{
+  color:var(--ivory2);text-decoration:none;
+  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  transition:color 0.3s;
+}
+.nav-links a:hover{color:var(--gold)}
+.lang-btn{
+  background:none;border:1px solid rgba(196,163,90,0.35);
+  color:var(--gold);font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  padding:7px 18px;cursor:pointer;border-radius:1px;
+  transition:all 0.3s;
+}
+.lang-btn:hover{background:rgba(196,163,90,0.12);border-color:var(--gold)}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-rows:1fr auto;
+  padding:140px 64px 80px;
+  position:relative;
+  overflow:hidden;
+  background: url("assets/hero_oil_mining_1774321759365.png") no-repeat center center / cover;
+}
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11,10,8,0.85) 0%, rgba(11,10,8,0.98) 100%);
+  pointer-events: none;
+}
+.hero-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:0.6;
+}
+.hero-glow{
+  position:absolute;
+  top:-20%;right:-10%;
+  width:700px;height:700px;
+  background:radial-gradient(ellipse, rgba(196,163,90,0.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;
+  bottom:-10%;left:-5%;
+  width:500px;height:500px;
+  background:radial-gradient(ellipse, rgba(196,163,90,0.04) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-line-v{
+  position:absolute;left:64px;top:0;bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(196,163,90,0.25) 25%,rgba(196,163,90,0.25) 75%,transparent);
+}
+.hero-content{
+  position:relative;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  height:100%;
+  padding-left:32px;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:20px;
+  font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:40px;
+  opacity:0;transform:translateY(16px);
+  animation:rise 1s 0.3s ease forwards;
+}
+.hero-tag::before{content:'';width:48px;height:1px;background:var(--gold)}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(64px,8vw,108px);
+  font-weight:300;
+  line-height:0.95;
+  letter-spacing:-0.02em;
+  color:var(--ivory);
+  margin-bottom:52px;
+  max-width:860px;
+  opacity:0;transform:translateY(24px);
+  animation:rise 1.1s 0.5s ease forwards;
+}
+.hero-h1 em{font-style:italic;color:var(--gold2)}
+.hero-sub{
+  max-width:520px;
+  font-size:15px;line-height:1.85;
+  color:var(--ivory2);
+  margin-bottom:60px;
+  opacity:0;transform:translateY(16px);
+  animation:rise 1s 0.75s ease forwards;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:48px;
+  opacity:0;transform:translateY(12px);
+  animation:rise 1s 0.95s ease forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:14px;
+  color:var(--black);background:var(--gold);
+  font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  padding:16px 36px;text-decoration:none;border-radius:1px;
+  transition:all 0.3s;
+}
+.btn-primary:hover{background:var(--gold2)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:12px;
+  color:var(--ivory);
+  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  text-decoration:none;
+  padding-bottom:6px;
+  border-bottom:1px solid rgba(238,233,223,0.25);
+  transition:all 0.35s;
+}
+.btn-secondary:hover{color:var(--gold);border-color:var(--gold)}
+.btn-secondary::after{content:'→';font-size:15px}
+.hero-metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--border);
+  padding-top:40px;
+  gap:0;
+  position:relative;
+  opacity:0;animation:rise 1s 1.1s ease forwards;
+}
+.hero-metric{
+  padding:0 0 0 32px;
+  border-left:1px solid var(--border);
+}
+.hero-metric:first-child{border-left:none;padding-left:0}
+.metric-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:52px;font-weight:300;
+  color:var(--ivory);line-height:1;
+  margin-bottom:6px;
+}
+.metric-n span{font-size:26px;color:var(--gold)}
+.metric-l{color:var(--ivory3);font-size:12px;letter-spacing:0.06em}
+
+/* SECTIONS */
+section{padding:120px 64px}
+.s-tag{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+}
+.s-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,5vw,64px);
+  font-weight:300;line-height:1.05;
+  color:var(--ivory);
+  margin-bottom:56px;
+}
+.s-title em{font-style:italic}
+.s-rule{
+  width:48px;height:1px;
+  background:linear-gradient(to right,var(--gold),transparent);
+  margin-bottom:48px;
+}
+
+/* ABOUT */
+#about{
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;align-items:start;
+}
+.about-text p{
+  color:var(--ivory2);font-size:15px;line-height:1.9;
+  margin-bottom:22px;
+}
+.about-text p:last-child{margin-bottom:0}
+.about-callout{
+  border-left:2px solid var(--gold);
+  padding:24px 32px;
+  background:rgba(196,163,90,0.04);
+  margin-top:40px;
+}
+.about-callout p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;font-style:italic;
+  color:var(--ivory);line-height:1.4;
+  margin:0;
+}
+.about-right{display:flex;flex-direction:column;gap:48px}
+.about-block{border-left:1px solid rgba(196,163,90,0.3);padding-left:28px}
+.about-block-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:60px;font-weight:300;
+  color:var(--ivory);line-height:1;margin-bottom:8px;
+}
+.about-block-num span{font-size:28px;color:var(--gold)}
+.about-block-label{color:var(--ivory3);font-size:12px;letter-spacing:0.08em}
+
+/* HOW */
+#how{background:var(--charcoal);border-top:1px solid var(--border)}
+.how-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:64px;gap:2px;
+}
+.how-card{
+  background:var(--black);
+  padding:52px 44px;
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);
+  transition:all 0.5s ease;
+  transform: translateY(0);
+}
+.how-card:hover{
+  border-color:rgba(196,163,90,0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+.how-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.5s;
+}
+.how-card:hover::after{transform:scaleX(1)}
+.how-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:80px;font-weight:300;
+  color:rgba(238,233,223,0.05);
+  position:absolute;top:16px;right:24px;
+  line-height:1;user-select:none;
+}
+.how-bar{width:28px;height:1px;background:var(--gold);margin-bottom:36px}
+.how-ttl{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:400;
+  color:var(--ivory);margin-bottom:18px;line-height:1.2;
+}
+.how-body{color:var(--ivory2);font-size:14px;line-height:1.9}
+
+/* SECTORS */
+#sectors{border-top:1px solid var(--border)}
+.sectors-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-top:64px;gap:2px;
+}
+.sector{
+  padding:64px 52px;
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:all 0.5s ease;
+  transform: translateY(0);
+}
+.sector:hover{
+  background:rgba(196,163,90,0.02);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  border-color:rgba(196,163,90,0.3);
+}
+.sector::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.6s;
+}
+.sector:hover::before{transform:scaleX(1)}
+.sector-lbl{
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.sector-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;font-weight:300;
+  color:var(--ivory);margin-bottom:22px;line-height:1.05;
+}
+.sector-body{color:var(--ivory2);font-size:14px;line-height:1.9}
+.sector-tag{
+  display:inline-block;
+  margin-top:32px;
+  font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ivory3);
+  border:1px solid var(--border);
+  padding:8px 16px;
+}
+
+/* TEAM */
+#team{background:var(--charcoal);border-top:1px solid var(--border)}
+.team-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  margin-top:64px;gap:2px;
+}
+.team-card{
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  transition:all 0.5s ease;
+  transform: translateY(0);
+  background:var(--black);
+  padding: 40px 32px;
+  text-align: center;
+}
+.team-card:hover{
+  border-color:rgba(196,163,90,0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+.team-img-wrapper {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin: 0 auto 32px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(196,163,90,0.3);
+}
+.team-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1) brightness(0.85);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+.team-card:hover .team-img-wrapper img {
+  filter: grayscale(0%) contrast(1.1) brightness(1);
+  transform: scale(1.05);
+}
+.team-content {
+  padding: 0;
+}
+.team-role{
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;line-height:1.5;
+}
+.team-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;
+  color:var(--ivory);margin-bottom:0;line-height:1.2;
+}
+.team-rule{
+  width:20px;height:1px;
+  background:rgba(196,163,90,0.4);
+  margin:20px auto;
+}
+.team-bio{color:var(--ivory3);font-size:12px;line-height:1.8}
+
+/* CONTACT */
+#contact{
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;align-items:start;
+}
+.contact-info{}
+.contact-intro{color:var(--ivory2);font-size:15px;line-height:1.9;margin-bottom:52px}
+.contact-details{display:flex;flex-direction:column;gap:28px}
+.cd-label{
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:6px;
+}
+.cd-val{color:var(--ivory);font-size:14px}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.fg{display:flex;flex-direction:column;gap:8px}
+.fg label{
+  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);
+}
+.fg input,.fg textarea,.fg select{
+  background:rgba(238,233,223,0.04);
+  border:1px solid rgba(238,233,223,0.1);
+  color:var(--ivory);
+  font-family:'Jost',sans-serif;font-size:14px;font-weight:300;
+  padding:14px 18px;border-radius:1px;outline:none;
+  transition:border-color 0.3s;
+  -webkit-appearance:none;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{
+  border-color:rgba(196,163,90,0.5);
+}
+.fg textarea{min-height:110px;resize:vertical}
+.fg select option{background:var(--black)}
+.btn-submit{
+  align-self:flex-start;
+  background:none;border:1px solid rgba(196,163,90,0.45);
+  color:var(--ivory);
+  font-family:'Jost',sans-serif;font-size:11px;
+  letter-spacing:0.18em;text-transform:uppercase;
+  padding:16px 40px;cursor:pointer;border-radius:1px;
+  transition:all 0.3s;
+}
+.btn-submit:hover{background:rgba(196,163,90,0.1);border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:36px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{color:var(--ivory3);font-size:11px;letter-spacing:0.06em}
+.footer-logo img{height:28px;opacity:0.35;filter:brightness(2)}
+
+/* ANIMS */
+@keyframes rise{
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(22px);
+  transition:opacity 0.8s ease,transform 0.8s ease;
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:20px 28px}
+  section{padding:80px 28px}
+  #hero{padding:120px 28px 64px}
+  .hero-line-v{left:28px}
+  .hero-content{padding-left:20px}
+  #about,#contact{grid-template-columns:1fr;gap:56px}
+  .how-grid,.sectors-wrap{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .hero-metrics{grid-template-columns:1fr}
+  .hero-metric{border-left:none;border-top:1px solid var(--border);padding:20px 0 0}
+  .hero-metric:first-child{border-top:none;padding-top:0}
+  .nav-links{display:none}
+  footer{flex-direction:column;gap:20px;text-align:center}
+}
+@media(max-width:600px){
+  .hero-h1{font-size:52px}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:24px}
+  .team-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#"><img src="assets/Logo gma Marfil.png" alt="GMA" class="nav-logo-img" style="height:36px;display:block"/></a>
+  <ul class="nav-links">
+    <li><a href="#about" data-es="Propuesta" data-en="Proposition">Propuesta</a></li>
+    <li><a href="#how" data-es="Proceso" data-en="Process">Proceso</a></li>
+    <li><a href="#sectors" data-es="Sectores" data-en="Sectors">Sectores</a></li>
+    <li><a href="#team" data-es="Equipo" data-en="Team">Equipo</a></li>
+    <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+    <li><a href="portal.html" data-es="Acceso Inversores" data-en="Investor Access" style="color:var(--gold);">Acceso Inversores 🔒</a></li>
+  </ul>
+  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
+</nav>
+
+<section id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-line-v"></div>
+
+  <div class="hero-content">
+    <p class="hero-tag" data-es="Acceso institucional · Venezuela" data-en="Institutional access · Venezuela">Acceso institucional · Venezuela</p>
+
+    <h1 class="hero-h1">
+      <span data-es="El canal hacia<br>proyectos <em>ya</em><br>seleccionados" data-en="The channel to<br><em>pre-selected</em><br>projects">El canal hacia<br>proyectos <em>ya</em><br>seleccionados</span>
+    </h1>
+
+    <p class="hero-sub" data-es="GMA estructura el acceso a oportunidades de inversión en hidrocarburos y minería en Venezuela — con rigor institucional, sin fricciones operativas y con el acompañamiento de quienes conocen el canal desde adentro." data-en="GMA structures access to investment opportunities in Venezuelan hydrocarbons and mining — with institutional rigor, without operational friction, and guided by those who know the channel from within.">
+      GMA estructura el acceso a oportunidades de inversión en hidrocarburos y minería en Venezuela — con rigor institucional, sin fricciones operativas y con el acompañamiento de quienes conocen el canal desde adentro.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary" data-es="Iniciar conversación" data-en="Start a conversation">Iniciar conversación</a>
+      <a href="#about" class="btn-secondary" data-es="Conocer más" data-en="Learn more">Conocer más</a>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <div class="metric-n">+1.500<span>&#9658;</span></div>
+        <div class="metric-l" data-es="Proyectos catalogados en hidrocarburos y minería" data-en="Projects catalogued in hydrocarbons and mining">Proyectos catalogados en hidrocarburos y minería</div>
+      </div>
+      <div class="hero-metric">
+        <div class="metric-n">2<span>&nbsp;sectores</span></div>
+        <div class="metric-l" data-es="Hidrocarburos activo · Minería en expansión" data-en="Hydrocarbons active · Mining expanding">Hidrocarburos activo · Minería en expansión</div>
+      </div>
+      <div class="hero-metric">
+        <div class="metric-n">100<span>%</span></div>
+        <div class="metric-l" data-es="Proyectos pre-filtrados por viabilidad técnica y nivel de inversión" data-en="Projects pre-filtered for technical viability and investment level">Proyectos pre-filtrados por viabilidad técnica y nivel de inversión</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-text">
+    <p class="s-tag" data-es="Quiénes somos" data-en="Who we are">Quiénes somos</p>
+    <h2 class="s-title" data-es="Acceso que no<br>se <em>improvisa</em>" data-en="Access that cannot<br>be <em>improvised</em>">Acceso que no<br>se <em>improvisa</em></h2>
+    <div class="s-rule"></div>
+    <p data-es="Venezuela alberga una de las mayores reservas de hidrocarburos del mundo y un potencial minero de primera escala. También es uno de los mercados de acceso más restringido para el capital privado internacional." data-en="Venezuela holds some of the world's largest hydrocarbon reserves and significant mining potential. It is also one of the most restricted-access markets for international private capital.">Venezuela alberga una de las mayores reservas de hidrocarburos del mundo y un potencial minero de primera escala. También es uno de los mercados de acceso más restringido para el capital privado internacional.</p>
+    <p data-es="GMA opera como el puente calificado entre ambas realidades. Trabajamos con acceso directo al proceso de calificación institucional venezolano — asegurando que cada inversor que ingresa al canal cumpla con los estándares normativos y técnicos requeridos." data-en="GMA operates as the qualified bridge between both realities. We work with direct access to the Venezuelan institutional qualification process — ensuring every investor entering the channel meets required regulatory and technical standards.">GMA opera como el puente calificado entre ambas realidades. Trabajamos con acceso directo al proceso de calificación institucional venezolano — asegurando que cada inversor que ingresa al canal cumpla con los estándares normativos y técnicos requeridos.</p>
+    <div class="about-callout">
+      <p data-es="No gestionamos oportunidades genéricas. Presentamos proyectos ya filtrados — en sectores de hidrocarburos y minería — a inversores que tienen la capacidad real de ejecutarlos." data-en="We do not manage generic opportunities. We present pre-filtered projects — in hydrocarbons and mining — to investors with the real capacity to execute them.">"No gestionamos oportunidades genéricas. Presentamos proyectos ya filtrados — en sectores de hidrocarburos y minería — a inversores que tienen la capacidad real de ejecutarlos."</p>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-block reveal">
+      <div class="about-block-num">+1.500<span>&#9658;</span></div>
+      <div class="about-block-label" data-es="Proyectos catalogados y pre-evaluados en hidrocarburos" data-en="Projects catalogued and pre-evaluated in hydrocarbons">Proyectos catalogados y pre-evaluados en hidrocarburos</div>
+    </div>
+    <div class="about-block reveal">
+      <div class="about-block-num">2<span>&nbsp;sectores</span></div>
+      <div class="about-block-label" data-es="Con expansión progresiva a medida que se consoliden resultados" data-en="With progressive expansion as results are consolidated">Con expansión progresiva a medida que se consoliden resultados</div>
+    </div>
+    <div class="about-block reveal">
+      <div class="about-block-num">100<span>%</span></div>
+      <div class="about-block-label" data-es="De los proyectos presentados han superado el proceso de evaluación técnica institucional" data-en="Of projects presented have passed the institutional technical evaluation process">De los proyectos presentados han superado el proceso de evaluación técnica institucional</div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <p class="s-tag" data-es="Cómo operamos" data-en="How we operate">Cómo operamos</p>
+  <h2 class="s-title" data-es="El proceso que<br>protege la <em>viabilidad</em>" data-en="The process that<br>protects <em>viability</em>">El proceso que<br>protege la <em>viabilidad</em></h2>
+  <div class="s-rule"></div>
+  <div class="how-grid">
+    <div class="how-card reveal">
+      <span class="how-num">01</span>
+      <div class="how-bar"></div>
+      <h3 class="how-ttl" data-es="Calificación del inversor" data-en="Investor qualification">Calificación del inversor</h3>
+      <p class="how-body" data-es="Evaluamos la capacidad técnica, financiera y operativa de cada actor antes de presentarlo al canal institucional. La calidad del inversor es lo que protege la viabilidad de todo el proceso." data-en="We evaluate the technical, financial, and operational capacity of each actor before presenting them to the institutional channel. Investor quality is what protects the entire process.">Evaluamos la capacidad técnica, financiera y operativa de cada actor antes de presentarlo al canal institucional. La calidad del inversor es lo que protege la viabilidad de todo el proceso.</p>
+    </div>
+    <div class="how-card reveal">
+      <span class="how-num">02</span>
+      <div class="how-bar"></div>
+      <h3 class="how-ttl" data-es="Estructuración técnica y legal" data-en="Technical and legal structuring">Estructuración técnica y legal</h3>
+      <p class="how-body" data-es="Sincronizamos los requisitos del inversor con el marco normativo venezolano — asegurando que toda la estructura documental, legal y operativa esté alineada antes de cualquier compromiso." data-en="We synchronize investor requirements with the Venezuelan regulatory framework — ensuring all documentation, legal structure, and operational requirements are fully aligned before any commitment is made.">Sincronizamos los requisitos del inversor con el marco normativo venezolano — asegurando que toda la estructura documental, legal y operativa esté alineada antes de cualquier compromiso.</p>
+    </div>
+    <div class="how-card reveal">
+      <span class="how-num">03</span>
+      <div class="how-bar"></div>
+      <h3 class="how-ttl" data-es="Ejecución institucional" data-en="Institutional execution">Ejecución institucional</h3>
+      <p class="how-body" data-es="Acompañamos el proyecto desde la aprobación hasta la fase operativa. Nuestra presencia activa en el canal venezolano garantiza que el avance no se detenga por obstáculos normativos o burocráticos." data-en="We accompany the project from approval to the operational phase. Our active presence in the Venezuelan institutional channel ensures progress is not stopped by regulatory or bureaucratic obstacles.">Acompañamos el proyecto desde la aprobación hasta la fase operativa. Nuestra presencia activa en el canal venezolano garantiza que el avance no se detenga por obstáculos normativos o burocráticos.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sectors">
+  <p class="s-tag" data-es="Sectores de intervención" data-en="Sectors of intervention">Sectores de intervención</p>
+  <h2 class="s-title" data-es="Dónde operamos <em>hoy</em>" data-en="Where we operate <em>today</em>">Dónde operamos <em>hoy</em></h2>
+  <div class="s-rule"></div>
+  <div class="sectors-wrap">
+    <div class="sector reveal">
+      <p class="sector-lbl" data-es="Sector activo" data-en="Active sector">Sector activo</p>
+      <h3 class="sector-name" data-es="Hidrocarburos" data-en="Hydrocarbons">Hidrocarburos</h3>
+      <p class="sector-body" data-es="Acceso a proyectos preseleccionados en el sector de hidrocarburos venezolano. Cada oportunidad presentada ha superado el proceso de evaluación técnica institucional — filtrada por viabilidad productiva, nivel de inversión y alineación normativa." data-en="Access to pre-selected projects in the Venezuelan hydrocarbons sector. Each presented opportunity has passed institutional technical evaluation — filtered by productive viability, investment level, and regulatory alignment.">Acceso a proyectos preseleccionados en el sector de hidrocarburos venezolano. Cada oportunidad presentada ha superado el proceso de evaluación técnica institucional — filtrada por viabilidad productiva, nivel de inversión y alineación normativa.</p>
+      <span class="sector-tag" data-es="Operativo" data-en="Operational">Operativo</span>
+    </div>
+    <div class="sector reveal">
+      <p class="sector-lbl" data-es="Sector en expansión" data-en="Expanding sector">Sector en expansión</p>
+      <h3 class="sector-name" data-es="Minería" data-en="Mining">Minería</h3>
+      <p class="sector-body" data-es="Venezuela posee uno de los mayores potenciales mineros de América Latina, con reservas significativas de oro, coltán, diamantes y minerales estratégicos. GMA estructura el acceso con el mismo rigor institucional que aplica en hidrocarburos." data-en="Venezuela holds one of the largest mining potentials in Latin America, with significant reserves of gold, coltan, diamonds, and strategic minerals. GMA structures access with the same institutional rigor applied in hydrocarbons.">Venezuela posee uno de los mayores potenciales mineros de América Latina, con reservas significativas de oro, coltán, diamantes y minerales estratégicos. GMA estructura el acceso con el mismo rigor institucional que aplica en hidrocarburos.</p>
+      <span class="sector-tag" data-es="En desarrollo" data-en="In development">En desarrollo</span>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <p class="s-tag" data-es="Equipo directivo" data-en="Leadership team">Equipo directivo</p>
+  <h2 class="s-title" data-es="Las personas detrás<br>del <em>canal</em>" data-en="The people behind<br>the <em>channel</em>">Las personas detrás<br>del <em>canal</em></h2>
+  <div class="s-rule"></div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-img-wrapper"><img src="assets/team_juan_carlos_1774320224058.png" alt="Juan Carlos Guevara"></div>
+      <div class="team-content">
+        <p class="team-role" data-es="Dirección Internacional y Estratégica" data-en="International & Strategic Direction">Dirección Internacional<br>y Estratégica</p>
+        <h3 class="team-name">Juan Carlos<br>Guevara</h3>
+        <div class="team-rule"></div>
+        <p class="team-bio" data-es="Articulación institucional en Venezuela. Coordinación del proceso de ejecución de proyectos a través de los organismos del sector." data-en="Institutional coordination in Venezuela. Management of project execution through sector agencies.">Articulación institucional en Venezuela. Coordinación del proceso de ejecución de proyectos a través de los organismos del sector.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-img-wrapper"><img src="assets/team_luis_alfonso_1774320241007.png" alt="Luis Alfonso Aguirre"></div>
+      <div class="team-content">
+        <p class="team-role" data-es="Relaciones con Inversores y Coordinación Corporativa" data-en="Investor Relations & Corporate Coordination">Relaciones con Inversores<br>y Coordinación Corporativa</p>
+        <h3 class="team-name">Luis Alfonso<br>Aguirre</h3>
+        <div class="team-rule"></div>
+        <p class="team-bio" data-es="Gestión de relaciones con actores internacionales. Acompañamiento desde el primer contacto hasta la estructuración del acuerdo." data-en="Management of relationships with international actors. Accompaniment from first contact through agreement structuring.">Gestión de relaciones con actores internacionales. Acompañamiento desde el primer contacto hasta la estructuración del acuerdo.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-img-wrapper"><img src="assets/team_Joney.jfif" alt="Joney Castellanos"></div>
+      <div class="team-content">
+        <p class="team-role" data-es="Estrategia e Inteligencia Comercial" data-en="Strategy & Commercial Intelligence">Estrategia e Inteligencia<br>Comercial</p>
+        <h3 class="team-name">Joney<br>Castellanos</h3>
+        <div class="team-rule"></div>
+        <p class="team-bio" data-es="Arquitectura estratégica y captación de actores calificados. Diseño del posicionamiento y presencia institucional de GMA." data-en="Strategic architecture and qualified actor acquisition. Design of GMA's institutional positioning and presence.">Arquitectura estratégica y captación de actores calificados. Diseño del posicionamiento y presencia institucional de GMA.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-img-wrapper"><img src="assets/team_herman_1774320272563.png" alt="Herman Martínez"></div>
+      <div class="team-content">
+        <p class="team-role" data-es="Representación Legal" data-en="Legal Representation">Representación Legal</p>
+        <h3 class="team-name">Herman<br>Martínez</h3>
+        <div class="team-rule"></div>
+        <p class="team-bio" data-es="Soporte jurídico y corporativo. Garantía de que cada estructura legal avance dentro del marco normativo venezolano." data-en="Legal and corporate support. Ensuring every legal structure advances within the Venezuelan regulatory framework.">Soporte jurídico y corporativo. Garantía de que cada estructura legal avance dentro del marco normativo venezolano.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-info">
+    <p class="s-tag" data-es="Contacto" data-en="Contact">Contacto</p>
+    <h2 class="s-title" data-es="¿Es su perfil<br>el <em>adecuado</em>?" data-en="Is your profile<br>the <em>right fit</em>?">¿Es su perfil<br>el <em>adecuado</em>?</h2>
+    <div class="s-rule"></div>
+    <p class="contact-intro" data-es="GMA trabaja con un número limitado de actores por ciclo. La primera conversación determina si existe alineación entre el perfil del inversor y las exigencias del canal. Si tiene la capacidad técnica y financiera para operar en este mercado, le invitamos a iniciar el diálogo." data-en="GMA works with a limited number of actors per cycle. The first conversation determines whether there is alignment between the investor's profile and the channel's requirements. If you have the technical and financial capacity to operate in this market, we invite you to begin the dialogue.">GMA trabaja con un número limitado de actores por ciclo. La primera conversación determina si existe alineación entre el perfil del inversor y las exigencias del canal. Si tiene la capacidad técnica y financiera para operar en este mercado, le invitamos a iniciar el diálogo.</p>
+    <div class="contact-details">
+      <div>
+        <p class="cd-label" data-es="Oficina" data-en="Office">Oficina</p>
+        <p class="cd-val">Calle 24A #57-69, Torre 7, Oficina 502<br>Bogotá, Colombia</p>
+      </div>
+      <div>
+        <p class="cd-label" data-es="Teléfono" data-en="Phone">Teléfono</p>
+        <p class="cd-val">(+57) 313 396 5652</p>
+      </div>
+      <div>
+        <p class="cd-label" data-es="Correo" data-en="Email">Correo</p>
+        <p class="cd-val">contacto@gmagestionempresarial.com</p>
+      </div>
+    </div>
+  </div>
+  <form class="contact-form" onsubmit="return false;">
+    <div class="fg">
+      <label data-es="Nombre completo y organización" data-en="Full name and organization">Nombre completo y organización</label>
+      <input type="text"/>
+    </div>
+    <div class="fg">
+      <label data-es="Correo electrónico" data-en="Email address">Correo electrónico</label>
+      <input type="email"/>
+    </div>
+    <div class="fg">
+      <label data-es="Sector de interés" data-en="Sector of interest">Sector de interés</label>
+      <select>
+        <option value="" data-es="Seleccionar" data-en="Select">Seleccionar</option>
+        <option data-es="Hidrocarburos" data-en="Hydrocarbons">Hidrocarburos</option>
+        <option data-es="Minería" data-en="Mining">Minería</option>
+        <option data-es="Ambos sectores" data-en="Both sectors">Ambos sectores</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label data-es="Mensaje" data-en="Message">Mensaje</label>
+      <textarea></textarea>
+    </div>
+    <button class="btn-submit" data-es="Enviar consulta" data-en="Send inquiry">Enviar consulta</button>
+  </form>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 GMA Gestión Empresarial S.A.S. — Bogotá, Colombia</span>
+  <div class="footer-logo"><img src="assets/Logo gma Marfil.png" alt="GMA" style="height:28px;opacity:0.35;filter:brightness(2)"/></div>
+</footer>
+
+<script>
+let lang='es';
+function toggleLang(){
+  lang=lang==='es'?'en':'es';
+  document.getElementById('lang-btn').textContent=lang==='es'?'EN':'ES';
+  document.querySelectorAll('[data-es]').forEach(el=>{
+    const t=el.getAttribute('data-'+lang);
+    if(!t)return;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=t;return}
+    if(el.tagName==='OPTION'){el.textContent=t;return}
+    if(t.includes('<br>')||t.includes('<em>')){el.innerHTML=t;return}
+    el.textContent=t;
+  });
+  document.documentElement.lang=lang;
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
