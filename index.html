@@ -54,6 +54,18 @@ nav{
   transition:all 0.3s;
 }
 .lang-btn:hover{background:rgba(196,163,90,0.12);border-color:var(--gold)}
+.portal-btn {
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.portal-btn:hover {
+  color: var(--gold2);
+}
 
 /* HERO */
 #hero{
@@ -476,9 +488,11 @@ footer{
     <li><a href="#sectors" data-es="Sectores" data-en="Sectors">Sectores</a></li>
     <li><a href="#team" data-es="Equipo" data-en="Team">Equipo</a></li>
     <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
-    <li><a href="portal.html" data-es="Acceso Inversores" data-en="Investor Access" style="color:var(--gold);">Acceso Inversores 🔒</a></li>
   </ul>
-  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
+  <div style="display:flex; align-items:center; gap: 16px;">
+    <a href="portal.html" class="portal-btn" data-es="Portal 🔒" data-en="Portal 🔒">Portal 🔒</a>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
+  </div>
 </nav>
 
 <section id="hero">
