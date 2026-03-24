@@ -270,9 +270,9 @@ footer {
     <h1 class="dash-title">Documentos Confidenciales</h1>
   </div>
   
-  <div class="docs-grid">
+  <div class="docs-grid" id="docsGrid">
     <!-- Document 1 -->
-    <a href="assets/Oportunidad de Inversión en Activos Petroleros Prioritarios – Venezuela.pdf" target="_blank" class="doc-card">
+    <a href="assets/Oportunidad de Inversión en Activos Petroleros Prioritarios – Venezuela.pdf" target="_blank" class="doc-card" data-category="oil">
       <div class="doc-icon">📄</div>
       <h3 class="doc-title">Oportunidad de Inversión en Activos Petroleros Prioritarios (Venezuela)</h3>
       <span class="doc-type">Teaser de Inversión (ES)</span>
@@ -280,7 +280,7 @@ footer {
     </a>
 
     <!-- Document 2 -->
-    <a href="assets/Investment Opportunity English Version.pdf" target="_blank" class="doc-card">
+    <a href="assets/Investment Opportunity English Version.pdf" target="_blank" class="doc-card" data-category="oil">
       <div class="doc-icon">📄</div>
       <h3 class="doc-title">Investment Opportunity in Priority Petroleum Assets</h3>
       <span class="doc-type">Investment Teaser (EN)</span>
@@ -288,7 +288,7 @@ footer {
     </a>
 
     <!-- Document 3 -->
-    <a href="assets/Estructura Económica del Proceso – Activación Técnica e Institucional.pdf" target="_blank" class="doc-card">
+    <a href="assets/Estructura Económica del Proceso – Activación Técnica e Institucional.pdf" target="_blank" class="doc-card" data-category="general">
       <div class="doc-icon">📊</div>
       <h3 class="doc-title">Estructura Económica del Proceso</h3>
       <span class="doc-type">Activación Técnica e Institucional</span>
@@ -296,7 +296,7 @@ footer {
     </a>
 
     <!-- Document 4 -->
-    <a href="assets/Estructura de Entrada y Validación – Proceso de Acceso a Proyectos Energéticos.pdf" target="_blank" class="doc-card">
+    <a href="assets/Estructura de Entrada y Validación – Proceso de Acceso a Proyectos Energéticos.pdf" target="_blank" class="doc-card" data-category="general">
       <div class="doc-icon">🔐</div>
       <h3 class="doc-title">Estructura de Entrada y Validación</h3>
       <span class="doc-type">Proceso de Acceso a Proyectos</span>
@@ -310,30 +310,44 @@ footer {
 </footer>
 
 <script>
-  // Simple JS Logic for prototype access
-  const CORRECT_CODE = "GMA-VIP";
-
   function checkCode() {
-    const input = document.getElementById('accessCode').value.trim();
-    if(input === CORRECT_CODE || input === "GMA2026") {
+    const input = document.getElementById('accessCode').value.trim().toUpperCase();
+    let userRole = null;
+    
+    if(input === "GMA-VIP" || input === "GMA2026") userRole = 'all';
+    else if(input === "GMA-OIL") userRole = 'oil';
+    else if(input === "GMA-MINING") userRole = 'mining';
+
+    if(userRole) {
       document.getElementById('lockScreen').classList.add('unlocked');
-      sessionStorage.setItem('gma_auth', 'true');
+      sessionStorage.setItem('gma_auth', userRole);
+      applyRoleFilter(userRole);
     } else {
       document.getElementById('lockError').style.opacity = 1;
       setTimeout(() => { document.getElementById('lockError').style.opacity = 0; }, 3000);
     }
   }
 
-  // Allow 'Enter' key to submit
+  function applyRoleFilter(role) {
+    const cards = document.querySelectorAll('.doc-card');
+    cards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      if(role === 'all' || cat === 'general' || cat === role) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
   document.getElementById('accessCode').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      checkCode();
-    }
+    if (e.key === 'Enter') checkCode();
   });
 
-  // Check if already authenticated this session
-  if(sessionStorage.getItem('gma_auth') === 'true') {
+  const savedRole = sessionStorage.getItem('gma_auth');
+  if(savedRole) {
     document.getElementById('lockScreen').classList.add('unlocked');
+    applyRoleFilter(savedRole);
   }
 </script>
 </body>
